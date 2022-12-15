@@ -1,3 +1,11 @@
 {
-  "token": ""
+  "token": "",
+  "acceptedColor": "",
+  "pendingColor": "",
+  "deniedColor": "",
+  "acceptedRoles": [""],
+  "mentionRole": "",
+  "requiredRoles": [""],
+  "restrictedRoles": [""],
+  "applicationChannel": ""
 }
