@@ -25,8 +25,8 @@ async function loadEvents(client) {
     }
   });
 
-  if (events.size <= 1) return;
-  return console.log(`🎉 Successfully loaded ${events.size} events!`);
+  if (events.size < 1) return;
+  return console.log(`🎉 Successfully loaded ${events.size} event(s)!`);
 }
 
 module.exports = { loadEvents };

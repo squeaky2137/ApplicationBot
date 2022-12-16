@@ -15,8 +15,8 @@ async function loadButtons(client) {
     }
   });
 
-  if (buttons.size <= 1) return;
-  return console.log(`🟩 Successfully loaded ${buttons.size} buttons!`);
+  if (buttons.size < 1) return;
+  return console.log(`🟩 Successfully loaded ${buttons.size} button(s)!`);
 }
 
 module.exports = { loadButtons };

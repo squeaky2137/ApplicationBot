@@ -21,8 +21,8 @@ async function loadCommands(client) {
     console.log(error);
   }
 
-  if (commands.size <= 1) return;
-  return console.log(`🤖 Successfully loaded ${commands.size} commands!`);
+  if (commands.size < 1) return;
+  return console.log(`🤖 Successfully loaded ${commands.size} command(s)!`);
 }
 
 module.exports = { loadCommands };

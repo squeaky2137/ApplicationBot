@@ -15,8 +15,8 @@ async function loadModals(client) {
     }
   });
 
-  if (modals.size <= 1) return;
-  return console.log(`📝 Successfully loaded ${modals.size} modals!`);
+  if (modals.size < 1) return;
+  return console.log(`📝 Successfully loaded ${modals.size} modal(s)!`);
 }
 
 module.exports = { loadModals };
