@@ -1,11 +1,12 @@
 {
   "token": "",
+  "applicationChannel": "",
+  "applyMessage": "",
   "acceptedColor": "",
   "pendingColor": "",
   "deniedColor": "",
   "acceptedRoles": [""],
   "mentionRole": "",
   "requiredRoles": [""],
-  "restrictedRoles": [""],
-  "applicationChannel": ""
+  "restrictedRoles": [""]
 }
