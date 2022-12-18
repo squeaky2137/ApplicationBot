@@ -10,7 +10,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("applymessage")
     .setDescription("Sends the apply message")
-    .setDMPermission(false);,
+    .setDMPermission(false),
   async execute(interaction, client) {
     try {
       const { channel, guild, member } = interaction;
