@@ -1,6 +1,5 @@
 module.exports = {
   name: "interactionCreate",
-
   async execute(interaction, client) {
     if (interaction.isButton()) {
       const button = client.buttons.get(interaction.customId);
