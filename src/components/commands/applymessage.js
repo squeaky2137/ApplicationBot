@@ -4,6 +4,7 @@ const {
   EmbedBuilder,
   PermissionFlagsBits: { Administrator },
   SlashCommandBuilder,
+  ActionRowBuilder,
 } = require("discord.js");
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
   async execute(interaction, client) {
     try {
       const { channel, guild, member } = interaction;
-      const { acceptedColor, applicationMessage } = client.config;
+      const { acceptedColor, applyMessage } = client.config;
 
       if (!member.permissions.has(Administrator))
         return interaction.reply({
@@ -27,7 +28,7 @@ module.exports = {
           new EmbedBuilder()
             .setTitle(`${guild.name} | Application`)
             .setColor(acceptedColor)
-            .setDescription(applicationMessage)
+            .setDescription(applyMessage)
             .setFooter({
               text: `${guild.name} | Application`,
               iconURL: guild.iconURL({ size: 512 }),
@@ -35,10 +36,12 @@ module.exports = {
             .setTimestamp(),
         ],
         components: [
-          new ButtonBuilder()
-            .setCustomId("application")
-            .setLabel("Apply")
-            .setStyle(Success),
+          new ActionRowBuilder().setComponents(
+            new ButtonBuilder()
+              .setCustomId("application")
+              .setLabel("Apply")
+              .setStyle(Success)
+          ),
         ],
       });
 
