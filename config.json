@@ -6,6 +6,7 @@
   "pendingColor": "",
   "deniedColor": "",
   "acceptedRoles": [""],
+  "deniedRoles": [""],
   "mentionRole": "",
   "requiredRoles": [""],
   "restrictedRoles": [""]
