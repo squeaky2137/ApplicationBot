@@ -15,6 +15,10 @@ module.exports = {
       const { applicationChannel, pendingColor, mentionRole } = config;
 
       const question1 = fields.getTextInputValue("question1");
+      const question2 = fields.getTextInputValue("question2");
+      const question3 = fields.getTextInputValue("question3");
+      const question4 = fields.getTextInputValue("question4");
+      const question5 = fields.getTextInputValue("question5");
 
       await guild.channels.cache
         .get(applicationChannel)
@@ -33,6 +37,22 @@ module.exports = {
                 {
                   name: "Question 1",
                   value: question1,
+                },
+                {
+                  name: "Question 2",
+                  value: question2,
+                },
+                {
+                  name: "Question 3",
+                  value: question3,
+                },
+                {
+                  name: "Question 4",
+                  value: question4,
+                },
+                {
+                  name: "Question 5",
+                  value: question5,
                 },
                 {
                   name: "Application Statistics",
