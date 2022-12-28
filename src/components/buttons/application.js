@@ -2,7 +2,6 @@ const {
   ActionRowBuilder,
   ModalBuilder,
   TextInputBuilder,
-  TextInputStyle: { Paragraph, Short },
 } = require("discord.js");
 
 module.exports = {
@@ -10,13 +9,13 @@ module.exports = {
   async execute(interaction, client) {
     try {
       const { config } = client;
-      const { acceptedRoles, requiredRoles, restrictedRoles } = config;
+      const { acceptedRoles, requiredRoles, restrictedRoles } = config.Applications[Object.keys(config.Applications)[0]];
+      const Application =  config.Applications[Object.keys(config.Applications)[0]];
       const {
         guild,
         member: { roles },
         user,
       } = interaction;
-
       if (roles.cache.some((role) => acceptedRoles.includes(role.id))) {
         return interaction.reply({
           content: "You already have the accepted role(s).",
@@ -37,57 +36,27 @@ module.exports = {
       }
 
       user.startApplication = Date.now();
-      interaction.showModal(
-        new ModalBuilder()
-          .setCustomId("applicationModal")
-          .setTitle(`${guild.name} | Application`)
-          .setComponents(
+      const Modal = new ModalBuilder().setCustomId("applicationModal " + Object.keys(config.Applications)[0]).setTitle(`${guild.name} | ${Object.keys(config.Applications)[0]}`)
+      Object.entries(Application.Questions).forEach(([key, value]) => {
+        const TextInput = new TextInputBuilder()
+            .setCustomId(key)
+            .setLabel(key)
+            .setMinLength(value.minLength)
+            .setMaxLength(value.maxLength)
+            .setStyle(value.type)
+            .setRequired(value.required)
+        if(value.placeholder)
+            TextInput.setPlaceholder(value.placeholder)
+        if(value.value)
+            TextInput.setValue(value.value)
+        Modal.addComponents(
             new ActionRowBuilder().setComponents(
-              new TextInputBuilder()
-                .setCustomId("question1")
-                .setLabel("Question 1")
-                .setMinLength(3)
-                .setMaxLength(16)
-                .setStyle(Short)
-                .setRequired(true)
-            ),
-            new ActionRowBuilder().setComponents(
-              new TextInputBuilder()
-                .setCustomId("question2")
-                .setLabel("Question 2")
-                .setMinLength(1)
-                .setMaxLength(1000)
-                .setStyle(Paragraph)
-                .setRequired(true)
-            ),
-            new ActionRowBuilder().setComponents(
-              new TextInputBuilder()
-                .setCustomId("question3")
-                .setLabel("Question 3")
-                .setMinLength(3)
-                .setMaxLength(16)
-                .setStyle(Short)
-                .setRequired(true)
-            ),
-            new ActionRowBuilder().setComponents(
-              new TextInputBuilder()
-                .setCustomId("question4")
-                .setLabel("Question 4")
-                .setMinLength(1)
-                .setMaxLength(1000)
-                .setStyle(Paragraph)
-                .setRequired(true)
-            ),
-            new ActionRowBuilder().setComponents(
-              new TextInputBuilder()
-                .setCustomId("question5")
-                .setLabel("Question 5")
-                .setMinLength(3)
-                .setMaxLength(16)
-                .setStyle(Short)
-                .setRequired(true)
+                TextInput
             )
-          )
+        )
+      })
+      interaction.showModal(
+        Modal
       );
     } catch (error) {
       console.log(error);
@@ -98,3 +67,4 @@ module.exports = {
     }
   },
 };
+

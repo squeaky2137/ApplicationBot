@@ -4,7 +4,7 @@ const {
   EmbedBuilder,
   PermissionFlagsBits: { Administrator },
   SlashCommandBuilder,
-  ActionRowBuilder,
+  ActionRowBuilder, StringSelectMenuBuilder,
 } = require("discord.js");
 
 module.exports = {
@@ -14,6 +14,7 @@ module.exports = {
     .setDMPermission(false),
   async execute(interaction, client) {
     try {
+      const { config } = client;
       const { channel, guild, member } = interaction;
       const { acceptedColor, applyMessage } = client.config;
 
@@ -23,25 +24,43 @@ module.exports = {
           ephemeral: true,
         });
 
-      channel.send({
+
+      const embed =  new EmbedBuilder()
+              .setTitle(`${guild.name} | Application`)
+              .setColor(acceptedColor)
+              .setDescription(applyMessage)
+              .setFooter({
+                text: `${guild.name} | Application`,
+                iconURL: guild.iconURL({size: 512}),
+              })
+              .setTimestamp()
+
+
+      const components = new ActionRowBuilder()
+      if(Object.keys(config.Applications).length === 1) {
+        components.setComponents(
+          new ButtonBuilder()
+            .setCustomId("application")
+            .setLabel("Apply")
+            .setStyle(Success)
+        )
+      } else {
+        const selectMenu = new StringSelectMenuBuilder().setCustomId("application").setPlaceholder("Select an application").setMaxValues(1)
+        Object.entries(config.Applications).forEach(([key, value]) => {
+          selectMenu.addOptions({
+            label: key,
+            description: value.description,
+            value: key
+          })
+        });
+        components.setComponents(selectMenu)
+      }
+      await channel.send({
         embeds: [
-          new EmbedBuilder()
-            .setTitle(`${guild.name} | Application`)
-            .setColor(acceptedColor)
-            .setDescription(applyMessage)
-            .setFooter({
-              text: `${guild.name} | Application`,
-              iconURL: guild.iconURL({ size: 512 }),
-            })
-            .setTimestamp(),
+            embed
         ],
         components: [
-          new ActionRowBuilder().setComponents(
-            new ButtonBuilder()
-              .setCustomId("application")
-              .setLabel("Apply")
-              .setStyle(Success)
-          ),
+          components
         ],
       });
 

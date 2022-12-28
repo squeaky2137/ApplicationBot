@@ -1,0 +1,121 @@
+
+# Bot Token
+token: XXXXXXXXXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+# Application Message
+#   * The message that will be in the Application buttons embed
+applyMessage: "Click the button below to apply for the server!"
+
+# Accepted Color
+#   * The color of the embed when the application is accepted and of the Application buttons embed
+acceptedColor: "#C35831"
+
+# Pending Color
+#   * The color of the embed when the application is pending
+pendingColor: "#F4D03F"
+
+# Denied Color
+#   * The color of the embed when the application is denied
+deniedColor: "#E74C3C"
+
+
+# Applications
+Applications:
+
+  # Application Name
+  Example1:
+
+    # All the questions that will be asked in the application
+    Questions:
+
+      # Application Question
+      this is the first question:
+
+        # Minimum length of the response
+        minLength: 0
+
+        # Maximum length of the response
+        maxLength: 16
+
+        # The type of question ( Short = short answers, Paragraph = long answers )
+        type: Short
+
+        # The placeholder or ghost text that will be shown when there is no text in the response ( Optional )
+        placeholder: "placeholder text"
+
+        # Text that is automatically added to the response when the application is accepted ( Optional )
+        value: "prefilled text"
+
+        # Whether the question is required or not
+        required: true
+
+      this is the second question:
+        minLength: 0
+        maxLength: 1000
+        type: Paragraph
+        placeholder: "placeholder text"
+        required: true
+      this is the third question:
+        minLength: 0
+        maxLength: 1000
+        type: Paragraph
+        required: false
+
+    # The channel finished applications will be sent to
+    Channel: '1057578369912426546'
+
+    # The roles that will be given to the user when accepted
+    acceptedRoles:
+      - '1057579905619066901'
+
+    # The roles that will be mentioned when the application is created
+    mentionRoles:
+      - '1057579662265565234'
+
+    # The roles that are required to have at least one of them to apply
+    requiredRoles:
+      - '1057579908991287376'
+
+    # Roles that if the user has they will not be able to apply
+    restrictedRoles:
+      - '1057579911734370375'
+
+    # Roles the user will be given when the application is denied
+    deniedRoles:
+        - '1057580019171463189'
+
+    # The description of the application
+    description: "This is the description of the application"
+
+  Example2:
+    Questions:
+      this is the first question:
+        minLength: 0
+        maxLength: 16
+        type: Short
+        value: "second ex"
+        required: true
+      this is the second question:
+        minLength: 0
+        maxLength: 1000
+        type: Paragraph
+        placeholder: "placeholder text"
+        required: true
+      this is the third question:
+        minLength: 0
+        maxLength: 1000
+        type: Paragraph
+        required: false
+    Channel: '1057578369912426546'
+    acceptedRoles:
+      - '1057579905619066901'
+      - '1057579905619066901'
+    mentionRoles:
+      - '1057579662265565234'
+    requiredRoles:
+      - '1057579908991287376'
+    restrictedRoles:
+      - '1057579911734370375'
+    deniedRoles:
+      - '1057580019171463189'
+    description: "This is the description of the application"

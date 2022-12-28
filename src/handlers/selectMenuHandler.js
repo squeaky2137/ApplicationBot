@@ -3,7 +3,7 @@ async function loadSelectMenus(client) {
 
   const { loadFiles } = require("../functions/fileLoader.js");
 
-  const Files = await loadFiles("./src/components/menus");
+  const Files = await loadFiles("./src/components/selectMenus");
 
   Files.forEach((file) => {
     const selectMenu = require(file);
