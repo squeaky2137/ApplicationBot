@@ -2,7 +2,7 @@ const {
   ActionRowBuilder,
   ModalBuilder,
   TextInputBuilder,
-  TextInputStyle: { Short },
+  TextInputStyle: { Paragraph, Short },
 } = require("discord.js");
 
 module.exports = {
@@ -42,10 +42,46 @@ module.exports = {
           .setCustomId("applicationModal")
           .setTitle(`${guild.name} | Application`)
           .setComponents(
-            new ActionRowBuilder().addComponents(
+            new ActionRowBuilder().setComponents(
               new TextInputBuilder()
                 .setCustomId("question1")
                 .setLabel("Question 1")
+                .setMinLength(3)
+                .setMaxLength(16)
+                .setStyle(Short)
+                .setRequired(true)
+            ),
+            new ActionRowBuilder().setComponents(
+              new TextInputBuilder()
+                .setCustomId("question2")
+                .setLabel("Question 2")
+                .setMinLength(1)
+                .setMaxLength(1000)
+                .setStyle(Paragraph)
+                .setRequired(true)
+            ),
+            new ActionRowBuilder().setComponents(
+              new TextInputBuilder()
+                .setCustomId("question3")
+                .setLabel("Question 3")
+                .setMinLength(3)
+                .setMaxLength(16)
+                .setStyle(Short)
+                .setRequired(true)
+            ),
+            new ActionRowBuilder().setComponents(
+              new TextInputBuilder()
+                .setCustomId("question4")
+                .setLabel("Question 4")
+                .setMinLength(1)
+                .setMaxLength(1000)
+                .setStyle(Paragraph)
+                .setRequired(true)
+            ),
+            new ActionRowBuilder().setComponents(
+              new TextInputBuilder()
+                .setCustomId("question5")
+                .setLabel("Question 5")
                 .setMinLength(3)
                 .setMaxLength(16)
                 .setStyle(Short)
@@ -56,7 +92,7 @@ module.exports = {
     } catch (error) {
       console.log(error);
       interaction.reply({
-        content: "An error occurred, please try again.",
+        content: "An error occurred, please try again later.",
         ephemeral: true,
       });
     }
