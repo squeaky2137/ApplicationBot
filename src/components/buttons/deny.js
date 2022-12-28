@@ -5,11 +5,12 @@ module.exports = {
   async execute(interaction, client) {
     try {
       const { config } = client;
-      const { deniedColor, deniedRoles, requiredRoles } = config;
+      const { deniedColor } = config;
       const { guild, message, user } = interaction;
+      const { deniedRoles, requiredRoles } = config.Applications[message.embeds[0].footer.text.split(" | ")[0]];
 
       const applicant = await guild.members.fetch(
-        message.embeds[0].fields[5].value
+        message.embeds[0].fields[message.embeds[0].fields.length-1].value
           .split("\n")[2]
           .split(" ")[4]
           .replace("`", "")
@@ -25,17 +26,17 @@ module.exports = {
         components: [],
       });
 
-      applicant.send({
+      await applicant.send({
         content: `Your application has been denied.`,
       });
 
       if (!message.thread) return;
 
       if (message.thread.messages.cache.size <= 1) {
-        message.thread.delete();
+        await message.thread.delete();
       } else {
-        message.thread.setLocked(true, "Application denied");
-        message.thread.setArchived(true, "Application denied");
+        await message.thread.setLocked(true, "Application denied");
+        await message.thread.setArchived(true, "Application denied");
       }
     } catch (error) {
       if (error.code === 10007) {

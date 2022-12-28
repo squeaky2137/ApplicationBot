@@ -18,15 +18,15 @@ module.exports = {
         console.log(error);
       }
     } else if (interaction.isModalSubmit()) {
-      const modal = client.modals.get(interaction.customId);
+      const modal = client.modals.get(interaction.customId.split(" ")[0]);
       if (!modal) return;
       try {
         modal.execute(interaction, client);
       } catch (error) {
         console.log(error);
       }
-    } else if (interaction.isSelectMenu()) {
-      const select = client.selects.get(interaction.customId);
+    } else if (interaction.isStringSelectMenu()) {
+      const select = client.selectMenus.get(interaction.customId);
       if (!select) return;
       try {
         select.execute(interaction, client);

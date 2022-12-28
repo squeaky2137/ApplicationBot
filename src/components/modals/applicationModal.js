@@ -12,71 +12,59 @@ module.exports = {
     try {
       const { fields, guild, member, user } = interaction;
       const { config } = client;
-      const { applicationChannel, pendingColor, mentionRole } = config;
+      const Application = config.Applications[interaction.customId.split(" ")[1]];
+      const { pendingColor } = config;
+      const { Channel, mentionRoles } = Application;
 
-      const question1 = fields.getTextInputValue("question1");
-      const question2 = fields.getTextInputValue("question2");
-      const question3 = fields.getTextInputValue("question3");
-      const question4 = fields.getTextInputValue("question4");
-      const question5 = fields.getTextInputValue("question5");
-
+      let mentions = "";
+      mentionRoles.forEach((role) => {
+        mentions += `<@&${role}> `;
+      })
+      const embed = new EmbedBuilder()
+          .setAuthor({
+            name: guild.name,
+            iconURL: guild.iconURL({ size: 512 }),
+          })
+          .setTitle(`**${user.tag}'s Application**`)
+          .setColor(pendingColor)
+          .setThumbnail(user.displayAvatarURL({ size: 512 }))
+          .setFooter({
+            text: `${interaction.customId.split(" ")[1]} | Application`,
+            iconURL: guild.iconURL({ size: 512 }),
+          })
+          .setTimestamp()
+      Object.keys(Application.Questions).forEach(([key]) => {
+        let question = fields.getTextInputValue(key);
+        if(question.length < 1) question = "No answer provided"
+        embed.addFields(
+            {name: key, value: question}
+        )
+      })
+      embed.addFields(
+          {
+            name: "Application Statistics",
+            value: [
+              `> 📋 **Application Duration**: \`${formatMilliseconds(
+                  Date.now() - user.startApplication,
+                  { ignore: ["millisecond"] }
+              )}\``,
+              `> 🧑 **User**: ${user}`,
+              `> 💳 **User ID**: \`${user.id}\``,
+              `> 🤝 **Member Since**: <t:${parseInt(
+                  member.joinedTimestamp / 1000
+              )}:R>`,
+              `> 📅 **Account Created**: <t:${parseInt(
+                  user.createdTimestamp / 1000
+              )}:R>`,
+            ].join("\n"),
+          }
+      )
       await guild.channels.cache
-        .get(applicationChannel)
+        .get(Channel)
         .send({
-          content: `<@&${mentionRole}>`,
+          content: mentions,
           embeds: [
-            new EmbedBuilder()
-              .setAuthor({
-                name: guild.name,
-                iconURL: guild.iconURL({ size: 512 }),
-              })
-              .setTitle(`**${user.tag}'s Application**`)
-              .setColor(pendingColor)
-              .setThumbnail(user.displayAvatarURL({ size: 512 }))
-              .setFields(
-                {
-                  name: "Question 1",
-                  value: question1,
-                },
-                {
-                  name: "Question 2",
-                  value: question2,
-                },
-                {
-                  name: "Question 3",
-                  value: question3,
-                },
-                {
-                  name: "Question 4",
-                  value: question4,
-                },
-                {
-                  name: "Question 5",
-                  value: question5,
-                },
-                {
-                  name: "Application Statistics",
-                  value: [
-                    `> 📋 **Application Duration**: \`${formatMilliseconds(
-                      Date.now() - user.startApplication,
-                      { ignore: ["millisecond"] }
-                    )}\``,
-                    `> 🧑 **User**: ${user}`,
-                    `> 💳 **User ID**: \`${user.id}\``,
-                    `> 🤝 **Member Since**: <t:${parseInt(
-                      member.joinedTimestamp / 1000
-                    )}:R>`,
-                    `> 📅 **Account Created**: <t:${parseInt(
-                      user.createdTimestamp / 1000
-                    )}:R>`,
-                  ].join("\n"),
-                }
-              )
-              .setFooter({
-                text: `${guild.name} | Application`,
-                iconURL: guild.iconURL({ size: 512 }),
-              })
-              .setTimestamp(),
+            embed
           ],
           components: [
             new ActionRowBuilder().setComponents(

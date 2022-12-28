@@ -4,9 +4,14 @@ const client = new Client({
   intents: ["Guilds", "GuildMembers", "GuildMessages", "MessageContent"],
   partials: [Partials.Channel],
 });
+const yaml = require("yaml");
+const fs = require("fs");
 
-client.config = require("./config.json");
+
+const configFile = fs.readFileSync("./config.yml", "utf8");
+client.config = yaml.parse(configFile);
 console.clear();
+
 
 const { loadButtons } = require("./src/handlers/buttonHandler.js");
 const { loadCommands } = require("./src/handlers/commandHandler.js");
@@ -20,6 +25,7 @@ client.events = new Collection();
 client.modals = new Collection();
 client.selectMenus = new Collection();
 
+console.log("🟩 Config loaded!");
 loadButtons(client);
 loadEvents(client);
 loadModals(client);
