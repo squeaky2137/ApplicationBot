@@ -9,7 +9,7 @@ module.exports = {
       const { guild, message, user } = interaction;
 
       const applicant = await guild.members.fetch(
-        message.embeds[0].fields[1].value
+        message.embeds[0].fields[5].value
           .split("\n")[2]
           .split(" ")[4]
           .replace("`", "")
@@ -18,14 +18,19 @@ module.exports = {
 
       await applicant.roles.remove(requiredRoles);
       await applicant.roles.add(acceptedRoles);
+
       message.edit({
         content: `Application accepted by ${user}`,
         embeds: [EmbedBuilder.from(message.embeds[0]).setColor(acceptedColor)],
         components: [],
       });
+
       applicant.send({
         content: `Congratulations, your application has been accepted!`,
       });
+      
+      if (!message.thread) return;
+
       if (message.thread.messages.cache.size <= 1) {
         message.thread.delete();
       } else {
