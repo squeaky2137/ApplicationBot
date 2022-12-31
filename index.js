@@ -7,11 +7,9 @@ const client = new Client({
 const yaml = require("yaml");
 const fs = require("fs");
 
-
 const configFile = fs.readFileSync("./config.yml", "utf8");
 client.config = yaml.parse(configFile);
 console.clear();
-
 
 const { loadButtons } = require("./src/handlers/buttonHandler.js");
 const { loadCommands } = require("./src/handlers/commandHandler.js");
@@ -25,7 +23,7 @@ client.events = new Collection();
 client.modals = new Collection();
 client.selectMenus = new Collection();
 
-console.log("🟩 Config loaded!");
+console.log("📖 Successfully loaded the config!");
 loadButtons(client);
 loadEvents(client);
 loadModals(client);
