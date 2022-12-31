@@ -4,7 +4,8 @@ const {
   EmbedBuilder,
   PermissionFlagsBits: { Administrator },
   SlashCommandBuilder,
-  ActionRowBuilder, StringSelectMenuBuilder,
+  ActionRowBuilder,
+  StringSelectMenuBuilder,
 } = require("discord.js");
 
 module.exports = {
@@ -24,44 +25,41 @@ module.exports = {
           ephemeral: true,
         });
 
-
-      const embed =  new EmbedBuilder()
-              .setTitle(`${guild.name} | Application`)
-              .setColor(acceptedColor)
-              .setDescription(applyMessage)
-              .setFooter({
-                text: `${guild.name} | Application`,
-                iconURL: guild.iconURL({size: 512}),
-              })
-              .setTimestamp()
-
-
-      const components = new ActionRowBuilder()
-      if(Object.keys(config.Applications).length === 1) {
+      const components = new ActionRowBuilder();
+      if (Object.keys(config.Applications).length === 1) {
         components.setComponents(
           new ButtonBuilder()
             .setCustomId("application")
             .setLabel("Apply")
             .setStyle(Success)
-        )
+        );
       } else {
-        const selectMenu = new StringSelectMenuBuilder().setCustomId("application").setPlaceholder("Select an application").setMaxValues(1)
+        const selectMenu = new StringSelectMenuBuilder()
+          .setCustomId("application")
+          .setPlaceholder("Select an application")
+          .setMaxValues(1);
         Object.entries(config.Applications).forEach(([key, value]) => {
           selectMenu.addOptions({
             label: key,
             description: value.description,
-            value: key
-          })
+            value: key,
+          });
         });
-        components.setComponents(selectMenu)
+        components.setComponents(selectMenu);
       }
       await channel.send({
         embeds: [
-            embed
+          new EmbedBuilder()
+            .setTitle(`${guild.name} | Application`)
+            .setColor(acceptedColor)
+            .setDescription(applyMessage)
+            .setFooter({
+              text: `${guild.name} | Application`,
+              iconURL: guild.iconURL({ size: 512 }),
+            })
+            .setTimestamp(),
         ],
-        components: [
-          components
-        ],
+        components: [components],
       });
 
       interaction.reply({
@@ -69,8 +67,9 @@ module.exports = {
         ephemeral: true,
       });
     } catch (error) {
+      console.log(error);
       interaction.reply({
-        content: ["**Error**", `\`\`\`js\n${error}\`\`\``].join("\n"),
+        content: "An error occurred, check the console for more information.",
         ephemeral: true,
       });
     }
