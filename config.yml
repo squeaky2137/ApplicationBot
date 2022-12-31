@@ -1,4 +1,3 @@
-
 # Bot Token
 token: XXXXXXXXXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -17,7 +16,6 @@ pendingColor: "#F4D03F"
 # Denied Color
 #   * The color of the embed when the application is denied
 deniedColor: "#E74C3C"
-
 
 # Applications
 Applications:
