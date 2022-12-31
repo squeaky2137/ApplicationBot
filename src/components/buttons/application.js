@@ -9,8 +9,10 @@ module.exports = {
   async execute(interaction, client) {
     try {
       const { config } = client;
-      const { acceptedRoles, requiredRoles, restrictedRoles } = config.Applications[Object.keys(config.Applications)[0]];
-      const Application =  config.Applications[Object.keys(config.Applications)[0]];
+      const { acceptedRoles, requiredRoles, restrictedRoles } =
+        config.Applications[Object.keys(config.Applications)[0]];
+      const Application =
+        config.Applications[Object.keys(config.Applications)[0]];
       const {
         guild,
         member: { roles },
@@ -36,28 +38,22 @@ module.exports = {
       }
 
       user.startApplication = Date.now();
-      const Modal = new ModalBuilder().setCustomId("applicationModal " + Object.keys(config.Applications)[0]).setTitle(`${guild.name} | ${Object.keys(config.Applications)[0]}`)
+      const Modal = new ModalBuilder()
+        .setCustomId("applicationModal " + Object.keys(config.Applications)[0])
+        .setTitle(`${guild.name} | ${Object.keys(config.Applications)[0]}`);
       Object.entries(Application.Questions).forEach(([key, value]) => {
         const TextInput = new TextInputBuilder()
-            .setCustomId(key)
-            .setLabel(key)
-            .setMinLength(value.minLength)
-            .setMaxLength(value.maxLength)
-            .setStyle(value.type)
-            .setRequired(value.required)
-        if(value.placeholder)
-            TextInput.setPlaceholder(value.placeholder)
-        if(value.value)
-            TextInput.setValue(value.value)
-        Modal.addComponents(
-            new ActionRowBuilder().setComponents(
-                TextInput
-            )
-        )
-      })
-      interaction.showModal(
-        Modal
-      );
+          .setCustomId(key)
+          .setLabel(key)
+          .setMinLength(value.minLength)
+          .setMaxLength(value.maxLength)
+          .setStyle(value.type)
+          .setRequired(value.required);
+        if (value.placeholder) TextInput.setPlaceholder(value.placeholder);
+        if (value.value) TextInput.setValue(value.value);
+        Modal.addComponents(new ActionRowBuilder().setComponents(TextInput));
+      });
+      interaction.showModal(Modal);
     } catch (error) {
       console.log(error);
       interaction.reply({
@@ -67,4 +63,3 @@ module.exports = {
     }
   },
 };
-

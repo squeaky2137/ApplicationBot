@@ -15,7 +15,9 @@ async function loadSelectMenus(client) {
   });
 
   if (selectMenus.size < 1) return;
-  return console.log(`📜 Successfully loaded ${selectMenus.size} select menu(s)!`);
+  return console.log(
+    `📜 Successfully loaded ${selectMenus.size} select menu(s)!`
+  );
 }
 
 module.exports = { loadSelectMenus };

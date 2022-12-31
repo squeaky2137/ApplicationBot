@@ -7,10 +7,11 @@ module.exports = {
       const { config } = client;
       const { acceptedColor } = config;
       const { guild, message, user } = interaction;
-      const { acceptedRoles, requiredRoles } = config.Applications[message.embeds[0].footer.text.split(" | ")[0]];
+      const { acceptedRoles, requiredRoles } =
+        config.Applications[message.embeds[0].footer.text.split(" | ")[0]];
 
       const applicant = await guild.members.fetch(
-        message.embeds[0].fields[message.embeds[0].fields.length-1].value
+        message.embeds[0].fields[message.embeds[0].fields.length - 1].value
           .split("\n")[2]
           .split(" ")[4]
           .replace("`", "")
@@ -29,7 +30,7 @@ module.exports = {
       await applicant.send({
         content: `Congratulations, your application has been accepted!`,
       });
-      
+
       if (!message.thread) return;
 
       if (message.thread.messages.cache.size <= 1) {

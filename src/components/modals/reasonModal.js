@@ -7,12 +7,13 @@ module.exports = {
       const { config } = client;
       const { deniedColor } = config;
       const { fields, guild, message, user } = interaction;
-      const { deniedRoles, requiredRoles } = config.Applications[message.embeds[0].footer.text.split(" | ")[0]];
+      const { deniedRoles, requiredRoles } =
+        config.Applications[message.embeds[0].footer.text.split(" | ")[0]];
 
       const reason = fields.getTextInputValue("reason");
 
       const applicant = await guild.members.fetch(
-        message.embeds[0].fields[message.embeds[0].fields.length-1].value
+        message.embeds[0].fields[message.embeds[0].fields.length - 1].value
           .split("\n")[2]
           .split(" ")[4]
           .replace("`", "")
@@ -45,7 +46,7 @@ module.exports = {
         ].join("\n"),
         ephemeral: true,
       });
-      
+
       if (!message.thread) return;
 
       if (message.thread.messages.cache.size <= 1) {
