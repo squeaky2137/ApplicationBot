@@ -11,7 +11,7 @@ A discord.js v14 application bot that can be used without being connected to a d
 ● discord.js `npm install discord.js@14.7.1`  
 ● format-ms `npm install format-ms@1.2.1`  
 ● glob `npm install glob@8.0.3`  
-● yaml `npm install yaml@2.2.0`
+● yaml `npm install yaml@2.2.0`  
 
 ## Installation
 
@@ -19,7 +19,7 @@ A discord.js v14 application bot that can be used without being connected to a d
 ● Edit the [config.yml](https://github.com/sdanialraza/ApplicationBot/blob/main/config.yml) accordingly.  
 ● In the terminal, run `npm install` to install all the required packages.  
 ● To run the bot, in the terminal, run `node index.js`.  
-● Try out  the `/applymessage` command in a channel to send the apply message (You must have the 'Administrator' permissions in the server).
+● Try out  the `/applymessage` command in a channel to send the apply message (You must have the 'Administrator' permissions in the server).  
 ● You can use the `/reloadconfig` command to reload the configuration file without restarting the bot.
 
 ## Contribution
