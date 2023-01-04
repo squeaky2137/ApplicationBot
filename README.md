@@ -22,6 +22,10 @@ A discord.js v14 application bot that can be used without being connected to a d
 ● Try out  the `/applymessage` command in a channel to send the apply message (You must have the 'Administrator' permissions in the server).  
 ● You can use the `/reloadconfig` command to reload the configuration file without restarting the bot.
 
+## Support
+
+Join the [Code Red Support](https://discord.gg/8V6Qt7TDMA) server if you have any questions or need any help with this bot.
+
 ## Contribution
 
 If you would like to contribute to this project, please fork the repository and submit a pull request with your changes. Please make sure to include detailed instructions on how to test your changes.
